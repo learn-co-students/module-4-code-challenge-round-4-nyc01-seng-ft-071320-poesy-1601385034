@@ -41,7 +41,7 @@ return (
 
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
     <>{this.showHandler()}</>
     );

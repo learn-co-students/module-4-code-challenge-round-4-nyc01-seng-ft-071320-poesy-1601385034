@@ -3,7 +3,8 @@ import React from "react";
 class Poem extends React.Component {
   
 state = {
-  read: false
+  read: false,
+  fav: false
 }
 
   clickHandler = () => {
@@ -20,8 +21,29 @@ state = {
     } else {
       return "Mark as read"
     }
-    
   }
+
+  favClick = () => {
+    // console.log("clicked")
+    
+    this.setState({
+      read: !this.state.read
+    })
+    
+    this.props.fav(this.props.poem)
+  }
+
+  favRender = () => {
+    if (this.state.fav === true) {
+      return "Not a fan !"
+    } else {
+      return "Mark as Favorite"
+    }
+  }
+
+  // removeButton = (event) => {
+  //   this.props.remove(this.props.poem)
+  // }
 
   render() {
     // console.log(this.props.poem)
@@ -36,6 +58,8 @@ state = {
           {this.props.poem.author}
         </p>
     <button onClick={this.clickHandler}>{this.buttonRender()}</button>
+    <button onClick={this.favClick}>{this.favRender()}</button>
+    {/*<button onClick={this.removeButton}>Delete Poem</button>*/}
       </div>
     );
   }
