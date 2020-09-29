@@ -20,6 +20,26 @@ class App extends React.Component {
     console.log('something')
   }
 
+
+
+  createPoem = (obj) => {
+    const options = {
+      method:'POST',
+      headers:{
+        'Content-Type': 'application/json',
+        'accept': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    }
+
+    fetch('http://localhost:6001/poems/', options)
+    .then(response => response.json())
+    .then(obj => {
+      this.setState({poemsArray: [...this.state.poemsArray, obj]})
+    })
+  }
+
+  /* init get to poems */
   componentDidMount(){
     fetch('http://localhost:6001/poems')
     .then(resp => resp.json())
@@ -31,15 +51,13 @@ class App extends React.Component {
   }
 
 
-
-
   render() {
 
     return (
       <div className="app">
         <div className="sidebar">
           <button onClick={this.displayForm}>Show/hide new poem form</button>
-          {this.state.peekaboo && <NewPoemForm />}
+          {this.state.peekaboo && <NewPoemForm submitHandler={this.createPoem} />}
         </div>
         <PoemsContainer poems={this.state.poemsArray}/>
       </div>
